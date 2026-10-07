@@ -1,0 +1,19 @@
+[project]
+name = "expense-mcp"
+version = "0.1.0"
+description = "A local SQLite-backed personal expense tracking MCP server"
+readme = "README.md"
+authors = [
+    { name = "Vansh Gupta", email = "vansh.gupta850@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "fastmcp>=4.0.11",
+]
+
+[project.scripts]
+expense-mcp = "expense_mcp:main"
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"

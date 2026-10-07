@@ -1,0 +1,20 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Local transaction data and generated backups
+/expenses.db
+/expenses.db-journal
+/expenses.db-wal
+/expenses.db-shm
+/backups/
+
+# Local VS Code interpreter selection
+/.vscode
