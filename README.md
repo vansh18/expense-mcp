@@ -10,6 +10,37 @@ By default, the database is `expenses.db` beside the repository's `categories.js
 
 The first server startup migrates the original `expenses(date, amount REAL, category, subcategory, note)` table in place. Existing IDs, dates, categories, notes, and exact cent amounts are retained. Legacy amounts are interpreted in the configured default currency. If migration encounters a value that cannot be represented exactly, startup fails rather than silently rounding it.
 
+## Use with Claude Desktop
+
+Claude Desktop can launch this MCP server locally over standard input/output:
+
+1. Install `uv` and run `uv sync` from the project directory.
+2. Open Claude Desktop's MCP configuration file:
+   - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
+   - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
+3. Add the server entry below, replacing the example project path with the absolute path to this repository:
+
+   ```json
+   {
+     "mcpServers": {
+       "expense-mcp": {
+         "command": "uv",
+         "args": [
+           "--directory",
+           "C:\\path\\to\\expense-mcp",
+           "run",
+           "expense-mcp"
+         ]
+       }
+     }
+   }
+   ```
+
+   If the configuration already contains other MCP servers, add only the `"expense-mcp"` entry inside its existing `"mcpServers"` object. On macOS, use a path such as `"/Users/your-name/expense-mcp"` instead.
+4. Save the file and restart Claude Desktop. The expense tools and prompts should then be available in Claude.
+
+The server and its SQLite database run on your machine; Claude launches the server when needed. If Claude cannot find `uv`, use the absolute path to the `uv` executable for `"command"`. Optional environment variables such as `EXPENSE_MCP_DB_PATH` and `EXPENSE_MCP_DEFAULT_CURRENCY` can be set in the server entry's `"env"` object.
+
 ## MCP capabilities
 
 ### Expenses and income
